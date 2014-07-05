@@ -9,6 +9,19 @@ namespace DX9OverlayAPIWrapper
 {
     public class Box : Overlay
     {
+        public override bool Visible
+        {
+            get
+            {
+                return base.Visible;
+            }
+            set
+            {
+                DX9Overlay.BoxSetShown(Id, value);
+                base.Visible = value;
+            }
+        }
+
         private Color color;
         public Color Color
         {

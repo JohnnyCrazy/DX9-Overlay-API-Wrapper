@@ -9,6 +9,18 @@ namespace DX9OverlayAPIWrapper
 {
     public class TextLabel : Overlay
     {
+        public override bool Visible
+        {
+            get
+            {
+                return base.Visible;
+            }
+            set 
+            {
+                DX9Overlay.TextSetShown(Id, value);
+                base.Visible = value;
+            }
+        }
         private String text;
         public String Text
         {

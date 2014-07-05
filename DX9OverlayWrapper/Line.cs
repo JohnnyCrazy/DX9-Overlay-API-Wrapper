@@ -9,6 +9,19 @@ namespace DX9OverlayAPIWrapper
 {
     public class Line : Overlay
     {
+        public override bool Visible
+        {
+            get
+            {
+                return base.Visible;
+            }
+            set
+            {
+                DX9Overlay.LineSetShown(Id, value);
+                base.Visible = value;
+            }
+        }
+
         private Color color;
         public Color Color
         {

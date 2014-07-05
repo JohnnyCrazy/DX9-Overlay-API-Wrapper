@@ -9,6 +9,19 @@ namespace DX9OverlayAPIWrapper
 {
     public class Image : Overlay
     {
+        public override bool Visible
+        {
+            get
+            {
+                return base.Visible;
+            }
+            set
+            {
+                DX9Overlay.ImageSetShown(Id, value);
+                base.Visible = value;
+            }
+        }
+
         private int rotation;
         public int Rotation
         {

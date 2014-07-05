@@ -22,7 +22,7 @@ namespace DX9OverlayAPIWrapper
         }
 
         private Boolean visible;
-        public Boolean Visible
+        public virtual Boolean Visible
         {
             get
             {
@@ -30,7 +30,6 @@ namespace DX9OverlayAPIWrapper
             }
             set
             {
-                DX9Overlay.BoxSetShown(id, value);
                 this.visible = value;
             }
         }
