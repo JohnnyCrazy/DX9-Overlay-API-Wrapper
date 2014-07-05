@@ -85,7 +85,7 @@ namespace DX9OverlayAPIWrapper
             this.endPos = endPos;
             this.width = width;
             this.color = color;
-            this.Visible = show;
+            base.Visible = show;
         }
 
         public override void Destroy()

@@ -109,7 +109,7 @@ namespace DX9OverlayAPIWrapper
                 this.borderColor = borderColor;
             }
             this.rectangle = rectangle;
-            this.Visible = show;
+            base.Visible = show;
             this.color = color;
         }
 

@@ -82,7 +82,7 @@ namespace DX9OverlayAPIWrapper
             Id = DX9Overlay.TextCreate(font, size, type.HasFlag(TypeFace.BOLD), type.HasFlag(TypeFace.ITALIC), pos.X, pos.Y, Convert.ToUInt32(DX9Overlay.ToHexValueARGB(color), 16), text, shadow, show);
             this.text = text;
             this.shadow = shadow;
-            this.Visible = show;
+            base.Visible = show;
             this.color = color;
             this.position = pos;
         }

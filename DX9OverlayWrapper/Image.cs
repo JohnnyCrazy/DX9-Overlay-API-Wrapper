@@ -70,7 +70,7 @@ namespace DX9OverlayAPIWrapper
             this.position = pos;
             this.rotation = rotation;
             this.align = align;
-            this.Visible = show;
+            base.Visible = show;
         }
 
         public override void Destroy()
