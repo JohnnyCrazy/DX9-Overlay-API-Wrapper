@@ -7,33 +7,8 @@ using System.Drawing;
 
 namespace DX9OverlayAPIWrapper
 {
-    public class Line
+    public class Line : Overlay
     {
-        private int id = -1;
-        public int Id
-        {
-            get
-            {
-                return id;
-            }
-            private set
-            {
-                this.id = value;
-            }
-        }
-        private Boolean visible;
-        public Boolean Visible
-        {
-            get
-            {
-                return visible;
-            }
-            set
-            {
-                DX9Overlay.LineSetShown(id, value);
-                this.visible = value;
-            }
-        }
         private Color color;
         public Color Color
         {
@@ -43,10 +18,11 @@ namespace DX9OverlayAPIWrapper
             }
             set
             {
-                DX9Overlay.LineSetColor(id, Convert.ToUInt32(DX9Overlay.ToHexValueARGB(value), 16));
+                DX9Overlay.LineSetColor(Id, Convert.ToUInt32(DX9Overlay.ToHexValueARGB(value), 16));
                 this.color = value;
             }
         }
+
         private int width;
         public int Width
         {
@@ -56,10 +32,11 @@ namespace DX9OverlayAPIWrapper
             }
             set
             {
-                DX9Overlay.LineSetWidth(id, value);
+                DX9Overlay.LineSetWidth(Id, value);
                 this.width = value;
             }
         }
+
         private Point startPos;
         public Point StartPos
         {
@@ -69,10 +46,11 @@ namespace DX9OverlayAPIWrapper
             }
             set
             {
-                DX9Overlay.LineSetPos(id, value.X, value.Y, endPos.X, endPos.Y);
+                DX9Overlay.LineSetPos(Id, value.X, value.Y, endPos.X, endPos.Y);
                 this.startPos = value;
             }
         }
+
         private Point endPos;
         public Point EndPos
         {
@@ -82,7 +60,7 @@ namespace DX9OverlayAPIWrapper
             }
             set
             {
-                DX9Overlay.LineSetPos(id, startPos.X, startPos.Y, value.X, value.Y);
+                DX9Overlay.LineSetPos(Id, startPos.X, startPos.Y, value.X, value.Y);
                 this.endPos = value;
             }
         }
@@ -94,17 +72,13 @@ namespace DX9OverlayAPIWrapper
             this.endPos = endPos;
             this.width = width;
             this.color = color;
-            this.visible = show;
+            this.Visible = show;
         }
 
-        public void Destroy()
+        public override void Destroy()
         {
-            DX9Overlay.LineDestroy(id);
-            id = -1;
-        }
-        public override string ToString()
-        {
-            return "Line " + Id.ToString();
+            DX9Overlay.LineDestroy(Id);
+            base.Destroy();
         }
     }
 }

@@ -7,33 +7,8 @@ using System.Drawing;
 
 namespace DX9OverlayAPIWrapper
 {
-    public class Image
+    public class Image : Overlay
     {
-        private int id = -1;
-        public int Id
-        {
-            get
-            {
-                return id;
-            }
-            private set
-            {
-                this.id = value;
-            }
-        }
-        private Boolean visible;
-        public Boolean Visible
-        {
-            get
-            {
-                return visible;
-            }
-            set
-            {
-                DX9Overlay.ImageSetShown(id, value);
-                this.visible = value;
-            }
-        }
         private int rotation;
         public int Rotation
         {
@@ -43,10 +18,11 @@ namespace DX9OverlayAPIWrapper
             }
             set
             {
-                DX9Overlay.ImageSetRotation(id, value);
+                DX9Overlay.ImageSetRotation(Id, value);
                 this.rotation = value;
             }
         }
+
         private Point position;
         public Point Position
         {
@@ -56,10 +32,11 @@ namespace DX9OverlayAPIWrapper
             }
             set
             {
-                DX9Overlay.ImageSetPos(id, value.X, value.Y);
+                DX9Overlay.ImageSetPos(Id, value.X, value.Y);
                 this.position = value;
             }
         }
+
         private Align align;
         public Align Align
         {
@@ -69,27 +46,24 @@ namespace DX9OverlayAPIWrapper
             }
             set
             {
-                DX9Overlay.ImageSetAlign(id, (int)value);
+                DX9Overlay.ImageSetAlign(Id, (int)value);
                 this.align = value;
             }
         }
+
         public Image(String path, Point pos, int rotation, Align align, bool show)
         {
             Id = DX9Overlay.ImageCreate(path, pos.X, pos.Y, rotation, (int)align, show);
             this.position = pos;
             this.rotation = rotation;
             this.align = align;
-            this.visible = show;
+            this.Visible = show;
         }
 
-        public void Destroy()
+        public override void Destroy()
         {
-            DX9Overlay.ImageDestroy(id);
-            id = -1;
-        }
-        public override string ToString()
-        {
-            return "Image " + Id.ToString();
+            DX9Overlay.ImageDestroy(Id);
+            base.Destroy();
         }
     }
 }
