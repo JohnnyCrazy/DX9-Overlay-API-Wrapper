@@ -7,20 +7,20 @@ using System.Drawing;
 
 namespace DX9OverlayAPIWrapper
 {
-    public class TextLabel
+    public class TextLabel : Overlay
     {
-        private int id = -1;
-        public int Id
+        public override bool Visible
         {
             get
             {
-                return id;
+                return base.Visible;
             }
-            private set
+            set 
             {
-                this.id = value;
+                DX9Overlay.TextSetShown(Id, value);
+                base.Visible = value;
             }
-        }
+        }
         private String text;
         public String Text
         {
@@ -30,10 +30,11 @@ namespace DX9OverlayAPIWrapper
             }
             set
             {
-                DX9Overlay.TextSetString(id, value);
+                DX9Overlay.TextSetString(Id, value);
                 this.text = value;
             }
         }
+
         private Boolean shadow;
         public Boolean Shadow
         {
@@ -43,23 +44,11 @@ namespace DX9OverlayAPIWrapper
             }
             set
             {
-                DX9Overlay.TextSetShadow(id, value);
+                DX9Overlay.TextSetShadow(Id, value);
                 this.shadow = value;
             }
         }
-        private Boolean visible;
-        public Boolean Visible
-        {
-            get
-            {
-                return visible;
-            }
-            set
-            {
-                DX9Overlay.TextSetShown(id, value);
-                this.visible = value;
-            }
-        }
+
         private Color color;
         public Color Color
         {
@@ -69,10 +58,11 @@ namespace DX9OverlayAPIWrapper
             }
             set
             {
-                DX9Overlay.TextSetColor(id, Convert.ToUInt32(DX9Overlay.ToHexValueARGB(value), 16));
+                DX9Overlay.TextSetColor(Id, Convert.ToUInt32(DX9Overlay.ToHexValueARGB(value), 16));
                 this.color = value;
             }
         }
+
         private Point position;
         public Point Position
         {
@@ -82,32 +72,30 @@ namespace DX9OverlayAPIWrapper
             }
             set
             {
-                DX9Overlay.TextSetPos(id, value.X, value.Y);
+                DX9Overlay.TextSetPos(Id, value.X, value.Y);
                 this.position = value;
             }
         }
 
-        public TextLabel(String font, int size,TypeFace type, Point pos, Color color, String text, Boolean shadow, Boolean show)
+        public TextLabel(String font, int size, TypeFace type, Point pos, Color color, String text, Boolean shadow, Boolean show)
         {
             Id = DX9Overlay.TextCreate(font, size, type.HasFlag(TypeFace.BOLD), type.HasFlag(TypeFace.ITALIC), pos.X, pos.Y, Convert.ToUInt32(DX9Overlay.ToHexValueARGB(color), 16), text, shadow, show);
             this.text = text;
             this.shadow = shadow;
-            this.visible = show;
+            base.Visible = show;
             this.color = color;
             this.position = pos;
         }
-        public void Destroy()
+
+        public override void Destroy()
         {
-            DX9Overlay.TextDestroy(id);
-            id = -1;
+            DX9Overlay.TextDestroy(Id);
+            base.Destroy();
         }
+
         public void TextUpdate(String font, int size, Boolean bold, Boolean italic)
         {
-            DX9Overlay.TextUpdate(id, font, size, bold, italic);
-        }
-        public override string ToString()
-        {
-            return "TextLabel " + Id.ToString();
+            DX9Overlay.TextUpdate(Id, font, size, bold, italic);
         }
     }
 }
