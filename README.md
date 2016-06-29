@@ -1,7 +1,7 @@
 DX9-Overlay-API-Wrapper
 =======================
 
-A .NET Wrapper for the DX9-Overlay-API
+A .NET Wrapper for the [DX9-Overlay-API](https://github.com/agrippa1994/DX9-Overlay-API)
 
 
 #####Usage Example (Add the Wrapper DLL as reference):
