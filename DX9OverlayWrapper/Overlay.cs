@@ -8,40 +8,40 @@ namespace DX9OverlayAPIWrapper
 {
     public abstract class Overlay
     {
-        private int id = -1;
+        private int _id = -1;
         public int Id
         {
             get
             {
-                return id;
+                return _id;
             }
             protected set
             {
-                this.id = value;
+                _id = value;
             }
         }
 
-        private Boolean visible;
-        public virtual Boolean Visible
+        private bool _visible;
+        public virtual bool Visible
         {
             get
             {
-                return visible;
+                return _visible;
             }
             set
             {
-                this.visible = value;
+                _visible = value;
             }
         }
 
         public virtual void Destroy()
         {
-            id = -1;
+            _id = -1;
         }
 
         public override string ToString()
         {
-            return this.GetType().Name + " " + Id;
+            return $"{GetType().Name} {Id}";
         }
     }
 }

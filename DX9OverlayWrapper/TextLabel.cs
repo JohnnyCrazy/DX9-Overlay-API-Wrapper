@@ -22,70 +22,70 @@ namespace DX9OverlayAPIWrapper
             }
         }
 
-        private String text;
-        public String Text
+        private string _text;
+        public string Text
         {
             get
             {
-                return text;
+                return _text;
             }
             set
             {
                 DX9Overlay.TextSetString(Id, value);
-                this.text = value;
+                _text = value;
             }
         }
 
-        private Boolean shadow;
-        public Boolean Shadow
+        private bool _shadow;
+        public bool Shadow
         {
             get
             {
-                return shadow;
+                return _shadow;
             }
             set
             {
                 DX9Overlay.TextSetShadow(Id, value);
-                this.shadow = value;
+                _shadow = value;
             }
         }
 
-        private Color color;
+        private Color _color;
         public Color Color
         {
             get
             {
-                return color;
+                return _color;
             }
             set
             {
-                DX9Overlay.TextSetColor(Id, Convert.ToUInt32(DX9Overlay.ToHexValueARGB(value), 16));
-                this.color = value;
+                DX9Overlay.TextSetColor(Id, (uint)value.ToArgb());
+                _color = value;
             }
         }
 
-        private Point position;
+        private Point _position;
         public Point Position
         {
             get
             {
-                return position;
+                return _position;
             }
             set
             {
                 DX9Overlay.TextSetPos(Id, value.X, value.Y);
-                this.position = value;
+                _position = value;
             }
         }
 
-        public TextLabel(String font, int size, TypeFace type, Point pos, Color color, String text, Boolean shadow, Boolean show)
+        public TextLabel(string font, int size, TypeFace type, Point position, Color color, string text, bool shadow, bool show)
         {
-            Id = DX9Overlay.TextCreate(font, size, type.HasFlag(TypeFace.BOLD), type.HasFlag(TypeFace.ITALIC), pos.X, pos.Y, Convert.ToUInt32(DX9Overlay.ToHexValueARGB(color), 16), text, shadow, show);
-            this.text = text;
-            this.shadow = shadow;
+            Id = DX9Overlay.TextCreate(font, size, type.HasFlag(TypeFace.BOLD), type.HasFlag(TypeFace.ITALIC), position.X, position.Y, (uint)color.ToArgb(), text, shadow, show);
+            _text = text;
+            _shadow = shadow;
             base.Visible = show;
-            this.color = color;
-            this.position = pos;
+            _color = color;
+            _position = position;
         }
 
         public override void Destroy()

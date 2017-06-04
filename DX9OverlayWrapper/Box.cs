@@ -22,95 +22,95 @@ namespace DX9OverlayAPIWrapper
             }
         }
 
-        private Color color;
+        private Color _color;
         public Color Color
         {
             get
             {
-                return color;
+                return _color;
             }
             set
             {
-                DX9Overlay.BoxSetColor(Id, Convert.ToUInt32(DX9Overlay.ToHexValueARGB(value), 16));
-                this.color = value;
+                DX9Overlay.BoxSetColor(Id, (uint)value.ToArgb());
+                _color = value;
             }
         }
 
-        private Rectangle rectangle;
+        private Rectangle _rectangle;
         public Rectangle Rectangle
         {
             get
             {
-                return rectangle;
+                return _rectangle;
             }
             set
             {
                 DX9Overlay.BoxSetPos(Id, value.X, value.Y);
                 DX9Overlay.BoxSetWidth(Id, value.Width);
                 DX9Overlay.BoxSetHeight(Id, value.Height);
-                this.rectangle = value;
+                _rectangle = value;
             }
         }
 
-        private Boolean borderShown;
-        public Boolean BorderShown
+        private bool _borderShown;
+        public bool BorderShown
         {
             get
             {
-                return borderShown;
+                return _borderShown;
             }
             set
             {
-                DX9Overlay.BoxSetBorder(Id, borderHeight, value);
-                this.borderShown = value;
+                DX9Overlay.BoxSetBorder(Id, _borderHeight, value);
+                _borderShown = value;
             }
         }
 
-        private int borderHeight;
+        private int _borderHeight;
         public int BorderHeight
         {
             get
             {
-                return borderHeight;
+                return _borderHeight;
             }
             set
             {
-                DX9Overlay.BoxSetBorder(Id, value, borderShown);
-                this.borderHeight = value;
+                DX9Overlay.BoxSetBorder(Id, value, _borderShown);
+                _borderHeight = value;
             }
         }
 
-        private Color borderColor;
+        private Color _borderColor;
         public Color BorderColor
         {
             get
             {
-                return borderColor;
+                return _borderColor;
             }
             set
             {
-                DX9Overlay.BoxSetBorderColor(Id, Convert.ToUInt32(DX9Overlay.ToHexValueARGB(value), 16));
-                this.borderColor = value;
+                DX9Overlay.BoxSetBorderColor(Id, (uint)value.ToArgb());
+                _borderColor = value;
             }
         }
 
-        public Box(Rectangle rectangle, Color color, Boolean show, Boolean borderShown = false, int borderHeight = 0, Color borderColor = default(Color))
+        public Box(Rectangle rectangle, Color color, bool show, bool borderShown = false, int borderHeight = 0, Color borderColor = default(Color))
         {
-            Id = DX9Overlay.BoxCreate(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height, Convert.ToUInt32(DX9Overlay.ToHexValueARGB(color), 16), show);
+            Id = DX9Overlay.BoxCreate(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height, (uint)color.ToArgb(), show);
             if (borderHeight != 0)
             {
                 DX9Overlay.BoxSetBorder(Id, borderHeight, borderShown);
-                this.borderHeight = borderHeight;
-                this.borderShown = borderShown;
+                _borderHeight = borderHeight;
+                _borderShown = borderShown;
             }
             if (borderColor != default(Color))
             {
-                DX9Overlay.BoxSetBorderColor(Id, Convert.ToUInt32(DX9Overlay.ToHexValueARGB(borderColor), 16));
-                this.borderColor = borderColor;
+                DX9Overlay.BoxSetBorderColor(Id, (uint)borderColor.ToArgb());
+                _borderColor = borderColor;
             }
-            this.rectangle = rectangle;
+            _rectangle = rectangle;
             base.Visible = show;
-            this.color = color;
+            _color = color;
         }
 
         public override void Destroy()

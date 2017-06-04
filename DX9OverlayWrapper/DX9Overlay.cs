@@ -11,9 +11,9 @@ namespace DX9OverlayAPIWrapper
     /// <summary>
     /// Class providing all necessary Functions for the API
     /// </summary>
-    public class DX9Overlay
+    public static class DX9Overlay
     {
-        public const String PATH = "dx9_overlay.dll";
+        private const String PATH = "dx9_overlay.dll";
 
         [DllImport(PATH, CallingConvention = CallingConvention.Cdecl)]
         public static extern int TextCreate(string font, int fontSize, bool bBold, bool bItalic, int x, int y, uint color, string text, bool bShadow, bool bShow);
@@ -96,24 +96,28 @@ namespace DX9OverlayAPIWrapper
 
         public static string ToHexValueRGB(Color color)
         {
-            return "" + color.R.ToString("X2") + color.G.ToString("X2") + color.B.ToString("X2");
+            return $"{color.R.ToString("X2")}{color.G.ToString("X2")}{color.B.ToString("X2")}";
         }
+
         public static string ToHexValueARGB(Color color)
         {
-            return "" + color.A.ToString("X2") + color.R.ToString("X2") + color.G.ToString("X2") + color.B.ToString("X2");
+            return $"{color.A.ToString("X2")}{color.R.ToString("X2")}{color.G.ToString("X2")}{color.B.ToString("X2")}";
         }
-        public Point GetScreenSpecs()
+
+        public static Point GetScreenSpecs()
         {
-            int x, y;
-            GetScreenSpecs(out x, out y);
+            GetScreenSpecs(out int x, out int y);
             return new Point(x, y);
         }
     }
+
     [Flags]
     public enum Align
     {
-        CENTER = 1,LEFT = 0
+        CENTER = 1,
+        LEFT = 0
     }
+
     [Flags]
     public enum TypeFace
     {

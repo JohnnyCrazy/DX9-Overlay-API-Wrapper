@@ -22,69 +22,69 @@ namespace DX9OverlayAPIWrapper
             }
         }
 
-        private Color color;
+        private Color _color;
         public Color Color
         {
             get
             {
-                return color;
+                return _color;
             }
             set
             {
-                DX9Overlay.LineSetColor(Id, Convert.ToUInt32(DX9Overlay.ToHexValueARGB(value), 16));
-                this.color = value;
+                DX9Overlay.LineSetColor(Id, (uint)value.ToArgb());
+                _color = value;
             }
         }
 
-        private int width;
+        private int _width;
         public int Width
         {
             get
             {
-                return width;
+                return _width;
             }
             set
             {
                 DX9Overlay.LineSetWidth(Id, value);
-                this.width = value;
+                _width = value;
             }
         }
 
-        private Point startPos;
-        public Point StartPos
+        private Point _startPosition;
+        public Point StartPosition
         {
             get
             {
-                return startPos;
+                return _startPosition;
             }
             set
             {
-                DX9Overlay.LineSetPos(Id, value.X, value.Y, endPos.X, endPos.Y);
-                this.startPos = value;
+                DX9Overlay.LineSetPos(Id, value.X, value.Y, _endPosition.X, _endPosition.Y);
+                _startPosition = value;
             }
         }
 
-        private Point endPos;
-        public Point EndPos
+        private Point _endPosition;
+        public Point EndPosition
         {
             get
             {
-                return endPos;
+                return _endPosition;
             }
             set
             {
-                DX9Overlay.LineSetPos(Id, startPos.X, startPos.Y, value.X, value.Y);
-                this.endPos = value;
+                DX9Overlay.LineSetPos(Id, _startPosition.X, _startPosition.Y, value.X, value.Y);
+                _endPosition = value;
             }
         }
 
-        public Line(Point startPos, Point endPos, int width, Color color, Boolean show)
+        public Line(Point startPosition, Point endPosition, int width, Color color, bool show)
         {
-            Id = DX9Overlay.LineCreate(startPos.X, startPos.Y, endPos.X, endPos.Y, width, Convert.ToUInt32(DX9Overlay.ToHexValueARGB(color), 16), show);
-            this.startPos = startPos;
-            this.endPos = endPos;
-            this.width = width;
-            this.color = color;
+            Id = DX9Overlay.LineCreate(startPosition.X, startPosition.Y, endPosition.X, endPosition.Y, width, (uint)color.ToArgb(), show);
+            _startPosition = startPosition;
+            _endPosition = endPosition;
+            _width = width;
+            _color = color;
             base.Visible = show;
         }
 

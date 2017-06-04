@@ -22,54 +22,54 @@ namespace DX9OverlayAPIWrapper
             }
         }
 
-        private int rotation;
+        private int _rotation;
         public int Rotation
         {
             get
             {
-                return rotation;
+                return _rotation;
             }
             set
             {
                 DX9Overlay.ImageSetRotation(Id, value);
-                this.rotation = value;
+                _rotation = value;
             }
         }
 
-        private Point position;
+        private Point _position;
         public Point Position
         {
             get
             {
-                return position;
+                return _position;
             }
             set
             {
                 DX9Overlay.ImageSetPos(Id, value.X, value.Y);
-                this.position = value;
+                _position = value;
             }
         }
 
-        private Align align;
+        private Align _align;
         public Align Align
         {
             get
             {
-                return align;
+                return _align;
             }
             set
             {
                 DX9Overlay.ImageSetAlign(Id, (int)value);
-                this.align = value;
+                _align = value;
             }
         }
 
-        public Image(String path, Point pos, int rotation, Align align, bool show)
+        public Image(string path, Point position, int rotation, Align align, bool show)
         {
-            Id = DX9Overlay.ImageCreate(path, pos.X, pos.Y, rotation, (int)align, show);
-            this.position = pos;
-            this.rotation = rotation;
-            this.align = align;
+            Id = DX9Overlay.ImageCreate(path, position.X, position.Y, rotation, (int)align, show);
+            _position = position;
+            _rotation = rotation;
+            _align = align;
             base.Visible = show;
         }
 
